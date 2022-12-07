@@ -20,8 +20,8 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
-
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+# ↑コメントアウトを外す
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
@@ -34,6 +34,8 @@ end
 I18n.locale = "en"
 
 RSpec.configure do |config|
+  config.include SignInSupport
+  # 以上の実装により、sign_inメソッドを利用できるようにしました。これによりログインの処理が必要な場所で毎回同じことを記述する必要がなくなり、sign_inの記述のみでログインの処理を再現することが可能となりました。
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
